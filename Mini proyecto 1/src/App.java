@@ -9,7 +9,6 @@ public class App {
         String id = scanner.nextLine();
         System.out.println("Ingrese su Rango: ");
         String rango = scanner.nextLine();
-        Soldado soldado1 = new Soldado(nombre, id, rango);
-        soldado1.mostrarInformacion();
+        scanner.close();
     }
 }
