@@ -1,20 +1,14 @@
-public class Soldado {
-    String nombre;
-    String id;
-    String rango;
-    
-    public Soldado(String nombre, String id, String rango) {
-        this.nombre = nombre;
-        this.id = id;
-        this.rango = rango;
-    }
+public class Soldado{
+    static String nombre;
+    static String id;
+    static String rango;
 
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        Soldado.nombre = nombre;
     }
 
     public String getId() {
@@ -22,7 +16,7 @@ public class Soldado {
     }
 
     public void setId(String id) {
-        this.id = id;
+        Soldado.id = id;
     }
 
     public String getRango() {
@@ -30,7 +24,7 @@ public class Soldado {
     }
 
     public void setRango(String rango) {
-        this.rango = rango;
+        Soldado.rango = rango;
     }
 
     void mostrarInformacion(){
