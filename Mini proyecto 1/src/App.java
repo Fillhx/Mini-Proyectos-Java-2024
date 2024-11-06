@@ -53,8 +53,7 @@ public class App {
             rangoObjeto.realizarAccion();
         
         }
-
-       
+      
         if(rangoObjeto instanceof OperacionesMilitares){
             OperacionesMilitares operaciones = (OperacionesMilitares) rangoObjeto;
              
@@ -85,8 +84,7 @@ public class App {
         if (rangoObjeto instanceof Coronel){
             Coronel coronel = (Coronel) rangoObjeto;
             System.out.println("La estrategia del coronel es la siguiente: " + coronel.getEstrategia());
-        }        
-
+        }  
         scanner.close();
     }
 }
