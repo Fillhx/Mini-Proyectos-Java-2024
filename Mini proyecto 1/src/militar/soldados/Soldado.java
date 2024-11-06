@@ -1,7 +1,9 @@
-public class Soldado{
-    static String nombre;
-    static String id;
-    static String rango;
+
+
+public class Soldado {
+    protected static String nombre;
+    public static String id;
+    protected static String rango;
 
     public String getNombre() {
         return nombre;
@@ -27,9 +29,9 @@ public class Soldado{
         Soldado.rango = rango;
     }
 
-    void mostrarInformacion(){
-        System.out.println("El nombre del soldado es: "+nombre);
-        System.out.println("El id del soldado es: "+id);
-        System.out.println("El rango del soldado es: "+rango);
+    public void mostrarInformacion() {
+        System.out.println("El nombre del soldado es: " + nombre);
+        System.out.println("El id del soldado es: " + id);
+        System.out.println("El rango del soldado es: " + rango);
     }
 }
