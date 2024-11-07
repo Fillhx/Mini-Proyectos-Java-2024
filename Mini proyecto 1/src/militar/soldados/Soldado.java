@@ -1,6 +1,5 @@
-
-
 public class Soldado {
+    
     protected static String nombre;
     public static String id;
     protected static String rango;
