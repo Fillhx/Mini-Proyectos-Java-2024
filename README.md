@@ -41,6 +41,7 @@ Para ejecutar este programa, asegúrate de tener:
 
 Universidad Del Valle 2024
 
+| Nombre                   | Codigo       |                  |
 |--------------------------|--------------|------------------|
 | Gustavo Restrepo Muñoz   | 2380618      |                  |
 | Jhon Sebastian Londoño   | 2359589      |                  |
