@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import militar.misiones.OperacionesMilitares;
+
+
 public class App {
     public static void main(String[] args) throws Exception {
 
@@ -53,7 +56,38 @@ public class App {
             rangoObjeto.realizarAccion();
         
         }
+      
+        if(rangoObjeto instanceof OperacionesMilitares){
+            OperacionesMilitares operaciones = (OperacionesMilitares) rangoObjeto;
+             
+            if(rangoObjeto instanceof SoldadoRaso){
+                System.out.println("EL soldado no puede asignar misiones, solo puede seguir instrucciones de su superior");
+                rangoObjeto.mostrarInformacion();
+                operaciones.reportarEstado();
+            }else{
+            System.out.println("Ingrese la mision para el soldado: ");
+            String mision = scanner.next();
+            System.out.println("\n");
+            System.out.println("DATOS DEL SOLDADO\n");
+            rangoObjeto.mostrarInformacion();
+            operaciones.asignarMision(mision);
+            operaciones.reportarEstado();
+            }
+        }
 
+        if (rangoObjeto instanceof  Teniente){
+            Teniente teniente = (Teniente) rangoObjeto;
+            System.out.println("La unidad a la que pertenece el teniente es: "+ teniente.getUnidad());
+        }
+
+        if (rangoObjeto instanceof Capitan){
+            Capitan capitan = (Capitan) rangoObjeto;
+            System.out.println("La cantidad de soldados bajo mando del capitan son: " + capitan.getSoldadosBajoSuMando());
+        }
+        if (rangoObjeto instanceof Coronel){
+            Coronel coronel = (Coronel) rangoObjeto;
+            System.out.println("La estrategia del coronel es la siguiente: " + coronel.getEstrategia());
+        }  
         scanner.close();
     }
 }
