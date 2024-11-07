@@ -1,5 +1,5 @@
-
 import militar.misiones.OperacionesMilitares;
+
 
 public class Teniente extends Rango implements OperacionesMilitares {
     public String unidad;

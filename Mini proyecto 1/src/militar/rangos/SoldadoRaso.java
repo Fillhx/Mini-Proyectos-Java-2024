@@ -1,5 +1,5 @@
-
 import militar.misiones.OperacionesMilitares;
+
 
 public class SoldadoRaso extends Rango implements OperacionesMilitares {
     public SoldadoRaso(final int nivel, String nombre, String id, String rango) {

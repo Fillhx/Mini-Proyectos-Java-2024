@@ -1,5 +1,5 @@
-
 import militar.misiones.OperacionesMilitares;
+
 
 public class Coronel extends Rango implements OperacionesMilitares {
     String estrategia;

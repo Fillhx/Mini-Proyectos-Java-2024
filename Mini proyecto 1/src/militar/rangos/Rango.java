@@ -1,5 +1,3 @@
-
-
 public abstract class Rango extends Soldado {
     public int nivel;
 
