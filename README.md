@@ -45,7 +45,7 @@ Universidad Del Valle 2024
 |--------------------------|--------------|------------------|
 | Gustavo Restrepo Muñoz   | 2380618      |                  |
 | Jhon Sebastian Londoño   | 2359589      |                  |
-| Jhorman Alexis Botero    | 2359573      |                  |
+| Jorman Alexis Botero    | 2359573      |                  |
 
 
 ## ENGLISH
@@ -95,4 +95,4 @@ Universidad del Valle 2024
 |--------------------------|--------------|------------------|
 | Gustavo Restrepo Muñoz   | 2380618      |                  |
 | Jhon Sebastian Londoño   | 2359589      |                  |
-| Jhorman Alexis Botero    | 2359573      |                  |
+| Joorman Alexis Botero    | 2359573      |                  |
