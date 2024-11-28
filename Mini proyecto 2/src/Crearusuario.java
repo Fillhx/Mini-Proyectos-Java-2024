@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Crearusuario extends JFrame {
+public class CrearUsuario extends JFrame {
 
     JTextField nameField, idField;
     JComboBox<String> rankComboBox;
 
-    public Crearusuario(ArrayList<String> sharedData) {
+    public CrearUsuario(ArrayList<Soldado> datoscompartidos, App appContext) {
         setTitle("Formulario de Soldado");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -26,7 +26,7 @@ public class Crearusuario extends JFrame {
         rankComboBox = new JComboBox<>(ranks);
         add(rankComboBox);
 
-        // Campo para misión
+        // Campo para ID
         add(new JLabel("Id:"));
         idField = new JTextField();
         add(idField);
@@ -42,16 +42,35 @@ public class Crearusuario extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
-                String rank = (String) rankComboBox.getSelectedItem(); // Obtener el rango seleccionado
+                String rank = (String) rankComboBox.getSelectedItem();
                 String userId = idField.getText();
 
+                // Validación de campos vacíos
                 if (name.isEmpty() || rank.isEmpty() || userId.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    sharedData.add("Nombre: " + name + ", Rango: " + rank + ", Id: " + userId);
-                    JOptionPane.showMessageDialog(null, "Datos guardados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    dispose(); // Cerrar ventana después de guardar
+                    return;
                 }
+
+                // Validación de ID numérico
+                if (!userId.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "El ID debe ser un número.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                // Validar ID único
+                for (Soldado data : datoscompartidos) {
+                    if (data.getId().equals(userId)) {
+                        JOptionPane.showMessageDialog(null, "El ID ya está registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+
+                // Agregar datos al sistema
+                Soldado nuevSoldado = new Soldado(name, rank, userId);
+                datoscompartidos.add(nuevSoldado);
+                appContext.updatelistaSoldados(name); // Actualizar la lista en el panel izquierdo
+                JOptionPane.showMessageDialog(null, "Datos guardados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dispose(); // Cerrar ventana después de guardar
             }
         });
 
