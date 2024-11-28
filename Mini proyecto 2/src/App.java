@@ -45,6 +45,7 @@ public class App extends JFrame implements ActionListener {
         Titulo = new JLabel("Sistema de Gestión - Rangos Militares");
         Titulo.setFont(new Font("Arial", Font.BOLD, 18));
         panelSuperior.add(Titulo);
+        panelSuperior.setBackground(new Color(100, 150, 200));
 
         // Panel Izquierdo
         panelIzquierdo = new JPanel(new BorderLayout(10, 10)); // Inicialización del panelIzquierdo
@@ -53,6 +54,7 @@ public class App extends JFrame implements ActionListener {
         listaSoldados = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(listaSoldados);
         panelIzquierdo.add(scrollPane, BorderLayout.CENTER);
+        panelIzquierdo.setBackground(Color.GREEN);
 
 
         // Botones para agregar y resetear soldados
@@ -77,11 +79,13 @@ public class App extends JFrame implements ActionListener {
         panelCentral.add(regañar);
         panelCentral.add(saludar);
         panelCentral.add(patrullar);
+        panelCentral.setBackground(Color.RED);
 
 
         // Panel Derecho -- Información del Soldado
         panelDerecho = new JPanel(new BorderLayout(10, 10));
         panelDerecho.setBorder(BorderFactory.createTitledBorder("Información del Soldado"));
+        panelDerecho.setBackground(Color.PINK);
 
 
         // Área de texto para mostrar información
