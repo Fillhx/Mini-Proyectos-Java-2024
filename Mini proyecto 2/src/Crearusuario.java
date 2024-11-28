@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CrearUsuario extends JFrame {
+public class Crearusuario extends JFrame {
 
     JTextField nameField, idField;
     JComboBox<String> rankComboBox;
 
-    public CrearUsuario(ArrayList<Soldado> datoscompartidos, App appContext) {
+    public Crearusuario(ArrayList<Soldado> datoscompartidos, App appContext) {
         setTitle("Formulario de Soldado");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

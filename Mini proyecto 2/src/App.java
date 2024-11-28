@@ -1,9 +1,9 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 
 public class App extends JFrame implements ActionListener {
@@ -111,6 +111,7 @@ public class App extends JFrame implements ActionListener {
         saludar.addActionListener(this);
         regañar.addActionListener(this);
         asignarMision.addActionListener(this);
+        patrullar.addActionListener(this);
         setVisible(true);
     }
 
@@ -119,7 +120,7 @@ public class App extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == AgregarSoldado) {
-            new CrearUsuario(datosdesoldados, this); 
+            new Crearusuario(datosdesoldados, this); 
         } else if (e.getSource() == mostrarInformacion) {
             updateTextArea(); 
         } else if (e.getSource() == saludar) {
@@ -127,12 +128,30 @@ public class App extends JFrame implements ActionListener {
         } else if (e.getSource() == regañar) {
             List<String> selectedSoldiers = listaSoldados.getSelectedValuesList();
             regañarSoldados(selectedSoldiers);
-        } else if (e.getSource() == patrullar) {
-            performAction("patrullar");
+        }else if (e.getSource() == patrullar) {
+            List<String> selectedSoldiers = listaSoldados.getSelectedValuesList();
+            if (selectedSoldiers.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona al menos un soldado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+                }
+            
+                // Abrir la ventana de patrulla para cada soldado seleccionado
+                for (String soldierName : selectedSoldiers) {
+                    for (Soldado soldier : datosdesoldados) {
+                        if (soldier.getNombre().equals(soldierName)) {
+                            new Patrullar(soldier); // Pasar el objeto Soldado a la ventana
+                            break;
+                        }
+                    }
+                }
+       
         } else if(e.getSource() == asignarMision){
             List<String> selectedSoldiers = listaSoldados.getSelectedValuesList();
             AsignarMision asignarMision = new AsignarMision();
             asignarMision.asignarMision(selectedSoldiers, datosdesoldados);
+        
+
+
         }
 }
 
