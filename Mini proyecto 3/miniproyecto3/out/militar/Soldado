@@ -1,0 +1,77 @@
+package militar;
+
+public class Soldado {
+   private String nombre;
+   private String rango;
+   private final String id;
+   private String mision;
+   int nivel;
+
+   public Soldado(String nombre, String rango, String id) {
+      this.nombre = nombre;
+      this.rango = rango;
+      this.id = id;
+      this.mision = "Sin misi\u00f3n asignada";
+      this.nivel = this.determinarNivelInicial(rango);
+   }
+
+   public Soldado() {
+      this.id = "-1";
+   }
+
+   public String getNombre() {
+      return this.nombre;
+   }
+
+   public String getRango() {
+      return this.rango;
+   }
+
+   public String getId() {
+      return this.id;
+   }
+
+   public void setMision(String mision) {
+      this.mision = mision;
+   }
+
+   public int determinarNivelInicial(String rango) {
+      switch (rango) {
+         case "General":
+            return 5;
+         case "Capit\u00e1n":
+            return 4;
+         case "Teniente":
+            return 3;
+         case "Soldado Raso":
+            return 2;
+         default:
+            return 1;
+      }
+   }
+
+   public boolean reducirNivel() {
+      --this.nivel;
+      if (this.nivel <= 0) {
+         return false;
+      } else {
+         if (this.nivel == 4) {
+            this.rango = "Capit\u00e1n";
+         } else if (this.nivel == 3) {
+            this.rango = "Teniente";
+         } else if (this.nivel == 2) {
+            this.rango = "Soldado Raso";
+         }
+
+         return true;
+      }
+   }
+
+   public int getNivel() {
+      return this.nivel;
+   }
+
+   public String toString() {
+      return "Nombre: " + this.nombre + ", Rango: " + this.rango + ", ID: " + this.id + ", Nivel: " + this.nivel + ", Misi\u00f3n: " + this.mision;
+   }
+}

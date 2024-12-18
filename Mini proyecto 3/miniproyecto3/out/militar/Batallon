@@ -1,0 +1,65 @@
+package militar;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class Batallon {
+   private ArrayList<Soldado> datosdesoldados = new ArrayList();
+
+   public Batallon() {
+   }
+
+   public ArrayList<Soldado> getDatosdesoldados() {
+      return this.datosdesoldados;
+   }
+
+   public void agregarSoldado(Soldado soldado) {
+      this.datosdesoldados.add(soldado);
+   }
+
+   public Soldado buscarSoldadoPorID(String soldadoID) {
+      Iterator var2 = this.datosdesoldados.iterator();
+
+      Soldado soldado;
+      do {
+         if (!var2.hasNext()) {
+            return new Soldado();
+         }
+
+         soldado = (Soldado)var2.next();
+      } while(!soldado.getId().equals(soldadoID));
+
+      return soldado;
+   }
+
+   public Soldado buscarSoldadoPorNombre(String nombreSoldado) {
+      Iterator var2 = this.datosdesoldados.iterator();
+
+      Soldado soldado;
+      do {
+         if (!var2.hasNext()) {
+            return new Soldado();
+         }
+
+         soldado = (Soldado)var2.next();
+      } while(!soldado.getNombre().equals(nombreSoldado));
+
+      return soldado;
+   }
+
+   public void asignarMision(String soldadoID, String mision) {
+      Iterator var3 = this.datosdesoldados.iterator();
+
+      while(var3.hasNext()) {
+         Soldado soldado = (Soldado)var3.next();
+         if (soldado.getId().equals(soldadoID)) {
+            if (mision.equals("Desobedeci\u00f3 la misi\u00f3n.")) {
+               soldado.reducirNivel();
+            }
+
+            soldado.setMision(mision);
+         }
+      }
+
+   }
+}
