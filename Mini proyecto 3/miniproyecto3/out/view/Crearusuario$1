@@ -1,0 +1,48 @@
+package view;
+
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import militar.Soldado;
+
+class Crearusuario$1 implements ActionListener {
+   Crearusuario$1(Crearusuario this$0, ArrayList var2, VentanaPrincipal var3) {
+      this.this$0 = this$0;
+      this.val$datoscompartidos = var2;
+      this.val$appContext = var3;
+   }
+
+   public void actionPerformed(ActionEvent e) {
+      String name = this.this$0.nameField.getText();
+      String rank = (String)this.this$0.rankComboBox.getSelectedItem();
+      String userId = this.this$0.idField.getText();
+      if (!name.isEmpty() && !rank.isEmpty() && !userId.isEmpty()) {
+         if (!userId.matches("\\d+")) {
+            JOptionPane.showMessageDialog((Component)null, "El ID debe ser un n\u00famero.", "Error", 0);
+         } else {
+            Iterator var5 = this.val$datoscompartidos.iterator();
+
+            Soldado data;
+            do {
+               if (!var5.hasNext()) {
+                  Soldado nuevSoldado = new Soldado(name, rank, userId);
+                  this.val$datoscompartidos.add(nuevSoldado);
+                  this.val$appContext.updatelistaSoldados(this.val$datoscompartidos);
+                  JOptionPane.showMessageDialog((Component)null, "Datos guardados correctamente.", "\u00c9xito", 1);
+                  this.this$0.dispose();
+                  return;
+               }
+
+               data = (Soldado)var5.next();
+            } while(!data.getId().equals(userId));
+
+            JOptionPane.showMessageDialog((Component)null, "El ID ya est\u00e1 registrado.", "Error", 0);
+         }
+      } else {
+         JOptionPane.showMessageDialog((Component)null, "Todos los campos son obligatorios.", "Error", 0);
+      }
+   }
+}

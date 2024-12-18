@@ -1,0 +1,27 @@
+package view;
+
+import java.awt.Component;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+public class Saludar {
+   public Saludar() {
+   }
+
+   public static String saludarSoldados(List<String> selectedSoldiers) {
+      StringBuilder result = new StringBuilder();
+      Iterator var2 = selectedSoldiers.iterator();
+
+      while(var2.hasNext()) {
+         String soldier = (String)var2.next();
+         if (soldier.length() > 10) {
+            JOptionPane.showMessageDialog((Component)null, "que nombre tan largoooo, hola " + soldier);
+         } else {
+            JOptionPane.showMessageDialog((Component)null, "hola " + soldier);
+         }
+      }
+
+      return result.toString();
+   }
+}

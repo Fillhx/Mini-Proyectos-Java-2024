@@ -1,0 +1,284 @@
+package vistaconsola;
+
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
+import militar.Soldado;
+
+public class VistaConsola {
+   private Scanner console;
+   private String[] misionesGeneral;
+   private String[] misionesCapitan;
+   private String[] misionesTeniente;
+   private String[] misionesSoldadoRaso;
+
+   public VistaConsola() {
+      this.console = new Scanner(System.in);
+      this.misionesGeneral = new String[]{"Planificar una estrategia avanzada", "Liderar una reuni\u00f3n de comandantes", "Revisar las fuerzas enemigas"};
+      this.misionesCapitan = new String[]{"Supervisar la log\u00edstica del equipo", "Coordinar las operaciones de los tenientes", "Ejecutar un ataque sorpresa"};
+      this.misionesTeniente = new String[]{"Liderar una escuadra de entrenamiento", "Patrullar la zona asignada", "Preparar a las tropas para un ejercicio nocturno"};
+      this.misionesSoldadoRaso = new String[]{"Realizar patrullas de seguridad", "Limpiar el campo de batalla", "Revisar el equipo de los soldados"};
+   }
+
+   public int mostrarMenuPrincipal() {
+      int opcionMenu = 0;
+
+      String opcionUsuario;
+      do {
+         System.out.println("\n---------------MENU PRINCIPAL----------------\n\n1. Agregar soldado.\n2. Asignar una mision.\n3. Mostrar informacion.\n4. Rega\u00f1ar.\n5. Saludar.\n6. Patrullar.\n7. Reiniciar.\n8. Salir del programa.\nIngrese una Opcion:");
+         opcionUsuario = this.console.nextLine();
+         if (this.esNumeroEntero(opcionUsuario)) {
+            opcionMenu = Integer.parseInt(opcionUsuario);
+            if (opcionMenu < 1 || opcionMenu > 8) {
+               System.out.println("Valor ingresado no valido.\n");
+            }
+         } else {
+            System.out.println("Valor ingresado no valido.\n");
+         }
+      } while(!this.esNumeroEntero(opcionUsuario) || opcionMenu < 1 || opcionMenu > 8);
+
+      return opcionMenu;
+   }
+
+   public String obtenerValorString(String mensaje) {
+      System.out.println(mensaje);
+      return this.console.nextLine();
+   }
+
+   public String obtenerRangoSoldado() {
+      System.out.println("Ingrese el rango del soldado:\n1. Capit\u00e1n\n2. Teniente\n3. General\n4. Soldado raso\n");
+      String rangoSoldado = this.console.nextLine();
+      if (this.esNumeroEntero(rangoSoldado)) {
+         switch (rangoSoldado) {
+            case "1":
+               return "Capit\u00e1n";
+            case "2":
+               return "Teniente";
+            case "3":
+               return "General";
+            case "4":
+               return "Soldado raso";
+            default:
+               return this.obtenerRangoSoldado();
+         }
+      } else {
+         System.out.println("Valor ingresado no valido.\n");
+         return this.obtenerRangoSoldado();
+      }
+   }
+
+   public String obtenerIdSoldado(ArrayList<Soldado> soldados) {
+      System.out.println("Ingrese el id del soldado:");
+      String idSoldado = this.console.nextLine();
+      if (this.esNumeroEntero(idSoldado)) {
+         Iterator var3 = soldados.iterator();
+
+         Soldado data;
+         do {
+            if (!var3.hasNext()) {
+               return idSoldado;
+            }
+
+            data = (Soldado)var3.next();
+         } while(!data.getId().equals(idSoldado));
+
+         System.out.println("El id del soldado ya est\u00e1 registrado");
+         return this.obtenerIdSoldado(soldados);
+      } else {
+         System.out.println("Valor ingresado no valido, debe ser un numero entero.\n");
+         return this.obtenerIdSoldado(soldados);
+      }
+   }
+
+   public void mostrarMensaje(String mensaje) {
+      System.out.println(mensaje);
+   }
+
+   public void mostrarSoldados(ArrayList<Soldado> soldados) {
+      if (soldados.isEmpty()) {
+         System.out.println("No hay soldados registrados.\n");
+      } else {
+         for(int i = 0; i < soldados.size(); ++i) {
+            System.out.println(i + 1 + ". " + soldados.get(i));
+         }
+      }
+
+   }
+
+   public int seleccionarSoldado(ArrayList<Soldado> soldados, String mensaje) {
+      System.out.println(mensaje);
+      System.out.println("Seleccione uno de los siguientes soldados (Ingrese el n\u00famero que aparece al comienzo de cada fila):");
+      if (soldados.isEmpty()) {
+         System.out.println("No hay soldados registrados.\n");
+         return -1;
+      } else {
+         this.mostrarSoldados(soldados);
+         System.out.println("Ingrese el n\u00famero de soldado");
+         String numeroSoldado = this.console.nextLine();
+         if (this.esNumeroEntero(numeroSoldado)) {
+            int numeroSoldadoEntero = Integer.parseInt(numeroSoldado);
+            if (numeroSoldadoEntero >= 1 && numeroSoldadoEntero <= soldados.size()) {
+               return numeroSoldadoEntero - 1;
+            } else {
+               System.out.println("Numero de soldado no existente.\n");
+               return this.seleccionarSoldado(soldados, mensaje);
+            }
+         } else {
+            System.out.println("Valor ingresado no valido.\n");
+            return this.seleccionarSoldado(soldados, mensaje);
+         }
+      }
+   }
+
+   public String obtenerMision(String rangoSoldado) {
+      String numeroMision;
+      int numeroMisionEntero;
+      switch (rangoSoldado) {
+         case "General":
+            for(numeroMisionEntero = 0; numeroMisionEntero < this.misionesGeneral.length; ++numeroMisionEntero) {
+               System.out.println(numeroMisionEntero + 1 + ". " + this.misionesGeneral[numeroMisionEntero]);
+               if (numeroMisionEntero == this.misionesGeneral.length - 1) {
+                  System.out.println(numeroMisionEntero + 2 + ". Rechazar");
+               }
+            }
+
+            System.out.println("Ingrese el numero de mision a asignar:");
+            numeroMision = this.console.nextLine();
+            if (this.esNumeroEntero(numeroMision)) {
+               numeroMisionEntero = Integer.parseInt(numeroMision);
+               if (numeroMisionEntero >= 1 && numeroMisionEntero <= this.misionesGeneral.length + 1) {
+                  if (numeroMisionEntero == this.misionesGeneral.length + 1) {
+                     System.out.println("\u00a1El soldado ha desobedecido la orden! Su rango ha sido reducido.");
+                     return "Desobedeci\u00f3 la misi\u00f3n.";
+                  }
+
+                  return this.misionesGeneral[numeroMisionEntero - 1];
+               }
+
+               System.out.println("Numero de mision no existente.\n");
+               return this.obtenerMision(rangoSoldado);
+            }
+
+            System.out.println("Valor ingresado no valido.\n");
+            return this.obtenerMision(rangoSoldado);
+         case "Capit\u00e1n":
+            for(numeroMisionEntero = 0; numeroMisionEntero < this.misionesCapitan.length; ++numeroMisionEntero) {
+               System.out.println(numeroMisionEntero + 1 + ". " + this.misionesCapitan[numeroMisionEntero]);
+               if (numeroMisionEntero == this.misionesGeneral.length - 1) {
+                  System.out.println(numeroMisionEntero + 2 + ". Rechazar");
+               }
+            }
+
+            System.out.println("Ingrese el numero de mision a asignar:");
+            numeroMision = this.console.nextLine();
+            if (this.esNumeroEntero(numeroMision)) {
+               numeroMisionEntero = Integer.parseInt(numeroMision);
+               if (numeroMisionEntero >= 1 && numeroMisionEntero <= this.misionesCapitan.length + 1) {
+                  if (numeroMisionEntero == this.misionesCapitan.length + 1) {
+                     System.out.println("\u00a1El soldado ha desobedecido la orden! Su rango ha sido reducido.");
+                     return "Desobedeci\u00f3 la misi\u00f3n.";
+                  }
+
+                  return this.misionesCapitan[numeroMisionEntero - 1];
+               }
+
+               System.out.println("Numero de mision no existente.\n");
+               return this.obtenerMision(rangoSoldado);
+            }
+
+            System.out.println("Valor ingresado no valido.\n");
+            return this.obtenerMision(rangoSoldado);
+         case "Teniente":
+            for(numeroMisionEntero = 0; numeroMisionEntero < this.misionesTeniente.length; ++numeroMisionEntero) {
+               System.out.println(numeroMisionEntero + 1 + ". " + this.misionesTeniente[numeroMisionEntero]);
+               if (numeroMisionEntero == this.misionesGeneral.length - 1) {
+                  System.out.println(numeroMisionEntero + 2 + ". Rechazar");
+               }
+            }
+
+            System.out.println("Ingrese el numero de mision a asignar:");
+            numeroMision = this.console.nextLine();
+            if (this.esNumeroEntero(numeroMision)) {
+               numeroMisionEntero = Integer.parseInt(numeroMision);
+               if (numeroMisionEntero >= 1 && numeroMisionEntero <= this.misionesTeniente.length + 1) {
+                  if (numeroMisionEntero == this.misionesTeniente.length + 1) {
+                     System.out.println("\u00a1El soldado ha desobedecido la orden! Su rango ha sido reducido.");
+                     return "Desobedeci\u00f3 la misi\u00f3n.";
+                  }
+
+                  return this.misionesTeniente[numeroMisionEntero - 1];
+               }
+
+               System.out.println("Numero de mision no existente.\n");
+               return this.obtenerMision(rangoSoldado);
+            }
+
+            System.out.println("Valor ingresado no valido.\n");
+            return this.obtenerMision(rangoSoldado);
+         case "Soldado Raso":
+            for(numeroMisionEntero = 0; numeroMisionEntero < this.misionesSoldadoRaso.length; ++numeroMisionEntero) {
+               System.out.println(numeroMisionEntero + 1 + ". " + this.misionesSoldadoRaso[numeroMisionEntero]);
+               if (numeroMisionEntero == this.misionesGeneral.length - 1) {
+                  System.out.println(numeroMisionEntero + 2 + ". Rechazar");
+               }
+            }
+
+            System.out.println("Ingrese el numero de mision a asignar:");
+            numeroMision = this.console.nextLine();
+            if (this.esNumeroEntero(numeroMision)) {
+               numeroMisionEntero = Integer.parseInt(numeroMision);
+               if (numeroMisionEntero >= 1 && numeroMisionEntero <= this.misionesSoldadoRaso.length + 1) {
+                  if (numeroMisionEntero == this.misionesSoldadoRaso.length + 1) {
+                     System.out.println("\u00a1El soldado ha desobedecido la orden! Su rango ha sido reducido.");
+                     return "Desobedeci\u00f3 la misi\u00f3n.";
+                  }
+
+                  return this.misionesSoldadoRaso[numeroMisionEntero - 1];
+               }
+
+               System.out.println("Numero de mision no existente.\n");
+               return this.obtenerMision(rangoSoldado);
+            }
+
+            System.out.println("Valor ingresado no valido.\n");
+            return this.obtenerMision(rangoSoldado);
+         default:
+            return "";
+      }
+   }
+
+   public Soldado reganiarSoldado(Soldado soldado) {
+      boolean sigueActivo = soldado.reducirNivel();
+      if (!sigueActivo) {
+         System.out.println("El soldado " + soldado.getNombre() + " ha sido eliminado (nivel 0).\n");
+         return soldado;
+      } else {
+         PrintStream var10000 = System.out;
+         String var10001 = soldado.getNombre();
+         var10000.println("El soldado " + var10001 + " ha sido rega\u00f1ado. Nivel actual: " + soldado.getNivel() + ".\n");
+         return new Soldado();
+      }
+   }
+
+   public void saludarSoldado(String nombreSoldado) {
+      if (nombreSoldado.length() > 10) {
+         System.out.println("que nombre tan largoooo, hola " + nombreSoldado);
+      } else {
+         System.out.println("hola " + nombreSoldado);
+      }
+
+   }
+
+   public String ponerPatrullarSoldado() {
+      System.out.println("Ingrese la forma de la patrulla:");
+      String formaPatrulla = this.console.nextLine();
+      System.out.println("Ingrese la zona de la patrulla:");
+      String zonaPatrulla = this.console.nextLine();
+      return "Patrullar - Forma: " + formaPatrulla + ", Zona: " + zonaPatrulla;
+   }
+
+   private boolean esNumeroEntero(String textNumber) {
+      return textNumber.matches("^[0-9]+$");
+   }
+}

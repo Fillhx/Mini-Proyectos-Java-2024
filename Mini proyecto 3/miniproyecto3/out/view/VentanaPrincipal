@@ -1,0 +1,234 @@
+package view;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import militar.Soldado;
+
+public class VentanaPrincipal extends JFrame {
+   private DefaultListModel<String> listModel;
+   private JList<String> listaSoldados;
+   private JPanel panelSuperior;
+   private JPanel panelIzquierdo;
+   private JPanel paneldebotonesIzquierdos;
+   private JPanel panelCentral;
+   private JPanel panelDerecho;
+   private JPanel panelInformacion;
+   private JLabel Titulo;
+   private JLabel hola;
+   private JButton AgregarSoldado;
+   private JButton Reset;
+   private JButton mostrarInformacion;
+   private JButton asignarMision;
+   private JButton regañar;
+   private JButton saludar;
+   private JButton patrullar;
+   private JTextArea areadeInformacion;
+   private ActionListener listener;
+   private Patrullar patrullarPanel;
+
+   public VentanaPrincipal(ActionListener listener) {
+      this.listener = listener;
+      this.setTitle("Sistema de Gesti\u00f3n de Rangos Militares");
+      this.setSize(900, 600);
+      this.setDefaultCloseOperation(3);
+      this.setLayout(new BorderLayout(10, 10));
+      this.panelSuperior = new JPanel();
+      this.Titulo = new JLabel("Sistema de Gesti\u00f3n - Rangos Militares");
+      this.Titulo.setFont(new Font("Arial", 1, 18));
+      this.panelSuperior.add(this.Titulo);
+      this.panelIzquierdo = new JPanel(new BorderLayout(10, 10));
+      this.panelIzquierdo.setBorder(BorderFactory.createTitledBorder("Soldados"));
+      this.listModel = new DefaultListModel();
+      this.listaSoldados = new JList(this.listModel);
+      JScrollPane scrollPane = new JScrollPane(this.listaSoldados);
+      this.panelIzquierdo.add(scrollPane, "Center");
+      this.paneldebotonesIzquierdos = new JPanel(new GridLayout(2, 1, 5, 5));
+      this.AgregarSoldado = new JButton("Agregar Soldado");
+      this.AgregarSoldado.addActionListener(listener);
+      this.AgregarSoldado.setActionCommand("AgregarSoldado");
+      this.Reset = new JButton("Reset");
+      this.Reset.addActionListener(listener);
+      this.Reset.setActionCommand("Reiniciar");
+      this.paneldebotonesIzquierdos.add(this.AgregarSoldado);
+      this.paneldebotonesIzquierdos.add(this.Reset);
+      this.panelIzquierdo.add(this.paneldebotonesIzquierdos, "South");
+      this.panelCentral = new JPanel(new GridLayout(5, 1, 10, 10));
+      this.panelCentral.setBorder(BorderFactory.createTitledBorder("Acciones"));
+      this.asignarMision = new JButton("Asignar Misi\u00f3n");
+      this.asignarMision.addActionListener(listener);
+      this.asignarMision.setActionCommand("AsignarMision");
+      this.mostrarInformacion = new JButton("Mostrar Informaci\u00f3n");
+      this.mostrarInformacion.addActionListener(listener);
+      this.mostrarInformacion.setActionCommand("MostrarInformacion");
+      this.regañar = new JButton("Rega\u00f1ar");
+      this.regañar.addActionListener(listener);
+      this.regañar.setActionCommand("Rega\u00f1ar");
+      this.saludar = new JButton("Saludar");
+      this.saludar.addActionListener(listener);
+      this.saludar.setActionCommand("Saludar");
+      this.patrullar = new JButton("Patrullar");
+      this.patrullar.addActionListener(listener);
+      this.patrullar.setActionCommand("Patrullar");
+      this.panelCentral.add(this.asignarMision);
+      this.panelCentral.add(this.mostrarInformacion);
+      this.panelCentral.add(this.regañar);
+      this.panelCentral.add(this.saludar);
+      this.panelCentral.add(this.patrullar);
+      this.panelDerecho = new JPanel(new BorderLayout(10, 10));
+      this.panelDerecho.setBorder(BorderFactory.createTitledBorder("Informaci\u00f3n del Soldado"));
+      this.areadeInformacion = new JTextArea();
+      this.areadeInformacion.setEditable(false);
+      this.areadeInformacion.setFont(new Font("Monospaced", 0, 14));
+      this.panelDerecho.add(new JScrollPane(this.areadeInformacion), "Center");
+      this.panelInformacion = new JPanel(new GridLayout(1, 2, 5, 5));
+      this.hola = new JLabel("          Informacion detallada del soldado          ");
+      this.panelInformacion.add(this.hola);
+      this.panelDerecho.add(this.panelInformacion, "South");
+      this.add(this.panelSuperior, "North");
+      this.add(this.panelIzquierdo, "West");
+      this.add(this.panelCentral, "Center");
+      this.add(this.panelDerecho, "East");
+      this.setVisible(true);
+      this.setDefaultCloseOperation(3);
+      this.setLocationRelativeTo((Component)null);
+   }
+
+   public void updateTextArea(ArrayList<Soldado> datosdesoldados) {
+      this.areadeInformacion.setText("");
+      if (datosdesoldados.isEmpty()) {
+         this.areadeInformacion.setText("No hay datos guardados.");
+      } else {
+         Iterator var2 = datosdesoldados.iterator();
+
+         while(var2.hasNext()) {
+            Soldado data = (Soldado)var2.next();
+            this.areadeInformacion.append("" + data + "\n");
+         }
+      }
+
+   }
+
+   public void updatelistaSoldados(ArrayList<Soldado> soldados) {
+      this.listModel.clear();
+      Iterator var2 = soldados.iterator();
+
+      while(var2.hasNext()) {
+         Soldado soldado = (Soldado)var2.next();
+         this.listModel.addElement(soldado.getNombre());
+      }
+
+   }
+
+   public void regañarSoldados(List<String> selectedSoldiers, ArrayList<Soldado> datosdesoldados) {
+      if (selectedSoldiers.isEmpty()) {
+         JOptionPane.showMessageDialog(this, "Por favor, selecciona al menos un soldado.", "Advertencia", 2);
+      } else {
+         List<Soldado> soldadosAEliminar = new ArrayList();
+         this.areadeInformacion.setText("");
+         Iterator var4 = selectedSoldiers.iterator();
+
+         while(true) {
+            while(var4.hasNext()) {
+               String soldierName = (String)var4.next();
+               Iterator var6 = datosdesoldados.iterator();
+
+               while(var6.hasNext()) {
+                  Soldado soldier = (Soldado)var6.next();
+                  if (soldier.getNombre().equals(soldierName)) {
+                     boolean sigueActivo = soldier.reducirNivel();
+                     if (!sigueActivo) {
+                        soldadosAEliminar.add(soldier);
+                        this.areadeInformacion.append("El soldado " + soldier.getNombre() + " ha sido eliminado (nivel 0).\n");
+                     } else {
+                        JTextArea var10000 = this.areadeInformacion;
+                        String var10001 = soldier.getNombre();
+                        var10000.append("El soldado " + var10001 + " ha sido rega\u00f1ado. Nivel actual: " + soldier.getNivel() + ".\n");
+                     }
+                     break;
+                  }
+               }
+            }
+
+            datosdesoldados.removeAll(soldadosAEliminar);
+            this.actualizarListaVisual(datosdesoldados);
+            return;
+         }
+      }
+   }
+
+   void actualizarListaVisual(ArrayList<Soldado> datosdesoldados) {
+      this.listModel.clear();
+      Iterator var2 = datosdesoldados.iterator();
+
+      while(var2.hasNext()) {
+         Soldado soldier = (Soldado)var2.next();
+         this.listModel.addElement(soldier.getNombre());
+      }
+
+   }
+
+   public void mostrarMensajeJOptionPaneAdvertencia(String mensaje) {
+      JOptionPane.showMessageDialog(this, mensaje, "Advertencia", 2);
+   }
+
+   public void limpiarDatosAreaInformacion(String mensaje) {
+      this.areadeInformacion.setText(mensaje);
+   }
+
+   public void ponerDatosAreaInformacion(String mensaje) {
+      this.areadeInformacion.append(mensaje);
+   }
+
+   public void ponerDatosAreaInformacionReganiarSoldado(String soldado) {
+      this.areadeInformacion.append("El soldado " + soldado + " ha sido rega\u00f1ado.\n");
+   }
+
+   public void ponerDatosAreaInformacionPatrullarSoldado(String soldado) {
+      this.areadeInformacion.append("El soldado " + soldado + " ha sido asignado a patrullar.\n");
+   }
+
+   public static String saludarSoldados(List<String> selectedSoldiers) {
+      return Saludar.saludarSoldados(selectedSoldiers);
+   }
+
+   public List<String> obtenerListaSoldadosSeleccionados() {
+      return this.listaSoldados.getSelectedValuesList();
+   }
+
+   public void crearUsuarioPanel(ArrayList<Soldado> datosdesoldados) {
+      new Crearusuario(datosdesoldados, this);
+   }
+
+   public String asignarMision(String nombreSoldado, String rangoSoldado) {
+      AsignarMision asignarMision = new AsignarMision();
+      return asignarMision.asignarMision(nombreSoldado, rangoSoldado);
+   }
+
+   public void ponerPatrullarSoldado(String soldadoID, String nombreSoldado) {
+      this.patrullarPanel = new Patrullar(soldadoID, nombreSoldado, this.listener);
+   }
+
+   public String obtenerMision() {
+      return this.patrullarPanel.obtenerMision();
+   }
+
+   public String obtenerIDSoldadoActualPatrullar() {
+      return this.patrullarPanel.obtenerIDSoldadoActual();
+   }
+}

@@ -1,0 +1,60 @@
+package view;
+
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+public class Patrullar extends JFrame {
+   private JTextField formaPatrullaField;
+   private JTextField zonaPatrullaField;
+   private JButton guardarButton;
+   private JButton cancelarButton;
+   private String soldadoID;
+
+   public Patrullar(String soldadoID, String nombreSoldado, ActionListener listener) {
+      this.soldadoID = soldadoID;
+      this.setTitle("Asignar Patrulla - " + nombreSoldado);
+      this.setSize(400, 250);
+      this.setDefaultCloseOperation(2);
+      this.setLayout(new GridLayout(4, 2, 10, 10));
+      this.setLocationRelativeTo((Component)null);
+      this.add(new JLabel("Forma de Patrulla:"));
+      this.formaPatrullaField = new JTextField();
+      this.add(this.formaPatrullaField);
+      this.add(new JLabel("Zona de Patrulla:"));
+      this.zonaPatrullaField = new JTextField();
+      this.add(this.zonaPatrullaField);
+      this.guardarButton = new JButton("Guardar");
+      this.cancelarButton = new JButton("Cancelar");
+      this.add(this.guardarButton);
+      this.add(this.cancelarButton);
+      this.guardarButton.addActionListener(listener);
+      this.guardarButton.setActionCommand("ObtenerMision");
+      this.cancelarButton.addActionListener((e) -> {
+         this.dispose();
+      });
+      this.setVisible(true);
+   }
+
+   public String obtenerMision() {
+      String formaPatrulla = this.formaPatrullaField.getText();
+      String zonaPatrulla = this.zonaPatrullaField.getText();
+      if (!formaPatrulla.isEmpty() && !zonaPatrulla.isEmpty()) {
+         JOptionPane.showMessageDialog(this, "La patrulla ha sido asignada correctamente.");
+         this.dispose();
+         return "Patrullar - Forma: " + formaPatrulla + ", Zona: " + zonaPatrulla;
+      } else {
+         JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", 0);
+         return "";
+      }
+   }
+
+   public String obtenerIDSoldadoActual() {
+      return this.soldadoID;
+   }
+}
