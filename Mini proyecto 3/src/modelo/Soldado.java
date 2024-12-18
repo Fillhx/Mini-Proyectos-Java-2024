@@ -1,4 +1,4 @@
-package modelo;
+package Modelo;
 
 // Definición de la clase Soldado, que representa a un soldado con atributos básicos como nombre, rango, ID, misión y nivel.
 public class Soldado {
