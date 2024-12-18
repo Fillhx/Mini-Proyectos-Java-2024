@@ -1,0 +1,45 @@
+package view;
+
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import militar.Soldado;
+
+public class Crearusuario extends JFrame {
+   private JTextField nameField;
+   private JTextField idField;
+   private JComboBox<String> rankComboBox;
+
+   public Crearusuario(ArrayList<Soldado> datoscompartidos, VentanaPrincipal appContext) {
+      this.setTitle("Formulario de Soldado");
+      this.setSize(400, 300);
+      this.setDefaultCloseOperation(2);
+      this.setLayout(new GridLayout(5, 2, 10, 10));
+      this.add(new JLabel("Nombre:"));
+      this.nameField = new JTextField();
+      this.add(this.nameField);
+      this.add(new JLabel("Rango:"));
+      String[] ranks = new String[]{"Capit\u00e1n", "Teniente", "General", "Soldado Raso"};
+      this.rankComboBox = new JComboBox(ranks);
+      this.add(this.rankComboBox);
+      this.add(new JLabel("Id:"));
+      this.idField = new JTextField();
+      this.add(this.idField);
+      JButton saveButton = new JButton("Guardar");
+      JButton backButton = new JButton("Volver");
+      this.add(saveButton);
+      this.add(backButton);
+      saveButton.addActionListener(new 1(this, datoscompartidos, appContext));
+      backButton.addActionListener((e) -> {
+         this.dispose();
+      });
+      this.setVisible(true);
+      this.setDefaultCloseOperation(3);
+      this.setLocationRelativeTo((Component)null);
+   }
+}
