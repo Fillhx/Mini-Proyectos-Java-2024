@@ -3,7 +3,7 @@ package vistaconsola;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import modelo.Soldado;
+import Modelo.Soldado;
 
 public class VistaConsola {
     private Scanner console;
