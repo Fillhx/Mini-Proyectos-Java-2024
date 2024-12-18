@@ -1,4 +1,4 @@
-package militar;
+package modelo;
 
 import java.util.ArrayList;
 
@@ -60,3 +60,5 @@ public class Batallon {
                 soldado.setMision(mision);
             }
         }
+    }
+}
