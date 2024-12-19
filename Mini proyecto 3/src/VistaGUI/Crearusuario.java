@@ -1,4 +1,4 @@
-package VistaGUI;
+package vistaGUI;
 
 
 import javax.swing.*;
