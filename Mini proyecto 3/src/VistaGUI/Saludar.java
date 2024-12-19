@@ -1,7 +1,6 @@
-package VistaGUI;
+package vistaGUI;
 
 import java.util.List;
-
 import javax.swing.JOptionPane;
 
 public class Saludar {
