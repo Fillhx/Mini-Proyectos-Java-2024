@@ -1,7 +1,8 @@
 package controlador;
-import Modelo.Batallon;
-import Modelo.Soldado;
-import VistaGUI.VentanaPrincipal;
+import modelo.Batallon;
+import modelo.Soldado;
+import vistaGUI.VentanaPrincipal;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
