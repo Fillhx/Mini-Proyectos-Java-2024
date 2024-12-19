@@ -3,7 +3,7 @@ package VistaGUI;
 
 import javax.swing.*;
 
-import Modelo.Soldado;
+import modelo.Soldado;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

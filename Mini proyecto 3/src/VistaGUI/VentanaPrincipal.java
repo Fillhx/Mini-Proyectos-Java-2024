@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-import Modelo.Soldado;
+import modelo.Soldado;
 
 
 public class VentanaPrincipal extends JFrame {
@@ -231,4 +231,5 @@ public class VentanaPrincipal extends JFrame {
     public String obtenerIDSoldadoActualPatrullar() {
         return this.patrullarPanel.obtenerIDSoldadoActual();
     }
+    
 }
