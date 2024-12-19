@@ -1,4 +1,4 @@
-package vistaGUI;
+package VistaGUI;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
