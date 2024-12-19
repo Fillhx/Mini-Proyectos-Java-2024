@@ -1,4 +1,4 @@
-package VistaGUI;
+package vistaGUI;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
