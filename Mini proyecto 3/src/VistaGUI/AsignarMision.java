@@ -1,4 +1,4 @@
-package vistaGUI;
+package VistaGUI;
 
 import java.util.ArrayList;
 import java.util.List;
